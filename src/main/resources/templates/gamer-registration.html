@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css">
+    <title>Registration</title>
+</head>
+<body>
+<div class="registration-container">
+    <h2>Registration</h2>
+
+    <!-- Requirements Container -->
+    <div class="requirements-container">
+        <h3>Requirements</h3>
+        <ul>
+            <li>Name</li>
+            <ul>
+                <li>The name must have at least 2 words.</li>
+                <li>The last word must have at least 2 letters.</li>
+                <li>The first word must start with an uppercase letter and must not begin with a space or any other character.</li>
+                <li>All other words must have least 3 letters.</li>
+                <li>Each word starts with an uppercase letter, followed by lowercase letters.</li>
+            </ul>
+            <br>
+
+            <li>Username</li>
+            <ul>
+                <li>The username must comprise at least 8 alphanumeric characters.</li>
+            </ul>
+            <br>
+
+           <li>Password</li>
+            <ul>
+                <li>The password must have at least 3 uppercase letters.</li>
+                <li>The password must have at least 3 lowercase letters.</li>
+                <li>The password must have at least 2 numbers.</li>
+                <li>The password may contain 1 or more special characters.</li>
+            </ul>
+        </ul>
+    </div>
+
+    <!-- Display error message if provided -->
+    <p th:if="${error}" class="error-message" th:text="${error}"></p>
+
+    <!-- Section to fill up for registration -->
+    <form method="post" th:action="@{/gamer/registration}">
+        <label>
+            <input type="text" name="name" placeholder="Name" required>
+        </label>
+        <label>
+            <input type="text" name="username" placeholder="Username" required>
+        </label>
+        <label>
+            <input type="text" name="email" placeholder="Email Address" required>
+        </label>
+        <label>
+            <input type="password" name="password" placeholder="Password" required>
+        </label>
+        <input type="submit" value="Register">
+    </form>
+
+</div>
+</body>
+</html>

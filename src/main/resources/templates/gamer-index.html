@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <title>GameVault</title>
+</head>
+<body>
+<div class="container">
+    <h2>GameVault</h2>
+
+    <!-- Message for successful logout -->
+    <div th:if="successfulLogout" class="successful-logout">
+        <p th:text="${successfulLogout}"></p>
+    </div>
+
+    <a th:href="@{/gamer/login}">Login</a>
+    <a th:href="@{/gamer/registration}">Register</a>
+</div>
+</body>
+</html>
