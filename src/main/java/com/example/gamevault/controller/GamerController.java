@@ -3,6 +3,7 @@ package com.example.gamevault.controller;
 import com.example.gamevault.exception.*;
 import com.example.gamevault.model.Person;
 import com.example.gamevault.service.GamerService;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,38 @@ public class GamerController {
             logger.error(logMessage);
         } else if (logLevel.equals("fatal")) {
             logger.fatal(logMessage);
+        }
+        redirectAttributes.addFlashAttribute("error", errorMessageToDisplay);
+    }
+
+    @PostMapping("/gamer/login")
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        HttpSession httpSession,
+                        RedirectAttributes redirectAttributes) {
+        try {
+            Person loggedInGamer = gamerService.login(username, password);
+            httpSession.setAttribute("loggedInGamer", loggedInGamer);
+            logger.info("Successful login for {}. Proceeding to Home page.", loggedInGamer.toString());
+            return "redirect:/gamer/home";
+
+        } catch (UnsuccessfulLoginException e) {
+            e.printStackTrace();
+            handleUnsuccessfulLogin("error", redirectAttributes, "Invalid username and/or password. Please try again.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            handleUnsuccessfulLogin("fatal", redirectAttributes, "Unexpected error occurred. Please try again later.");
+        }
+
+        return "redirect:/gamer/login";
+    }
+
+    private void handleUnsuccessfulLogin(String logLevel, RedirectAttributes redirectAttributes, String errorMessageToDisplay) {
+        if (logLevel.equals("error")) {
+            logger.error("Unsuccessful login due to invalid username and/or password. Redirection to Login page with error message displayed.");
+        } else if (logLevel.equals("fatal")) {
+            logger.fatal("Unsuccessful login due to unexpected error.");
         }
         redirectAttributes.addFlashAttribute("error", errorMessageToDisplay);
     }
