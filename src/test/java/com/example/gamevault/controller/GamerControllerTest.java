@@ -14,9 +14,27 @@ public class GamerControllerTest {
     private GamerController gamerController;
 
     @Test
+    void showGamerLoginPage_returnsGamerIndexView() {
+        String viewName = gamerController.retrieveGamerIndexPage();
+        assertEquals(viewName, "gamer-index");
+    }
+
+    @Test
+    void showGamerLoginPage_returnsGamerHomeView() {
+        String viewName = gamerController.retrieveGamerHomePage();
+        assertEquals(viewName, "gamer-home");
+    }
+
+    @Test
     void showGamerLoginPage_returnsGamerLoginView() {
         String viewName = gamerController.retrieveGamerLoginPage();
         assertEquals(viewName, "gamer-login");
+    }
+
+    @Test
+    void showGamerLoginPage_returnsGamerRegistrationView() {
+        String viewName = gamerController.retrieveGamerRegistrationPage();
+        assertEquals(viewName, "gamer-registration");
     }
 
 }

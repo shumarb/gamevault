@@ -9,9 +9,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class GamerController {
     private static final Logger logger = LogManager.getLogger(GamerController.class);
 
+    @GetMapping("/")
+    public String retrieveGamerIndexPage() {
+        return "gamer-index";
+    }
+
+    @GetMapping("/home")
+    public String retrieveGamerHomePage() {
+        return "gamer-home";
+    }
+
     @GetMapping("/login")
     public String retrieveGamerLoginPage() {
         return "gamer-login";
+    }
+
+    @GetMapping("/login")
+    public String retrieveGamerRegistrationPage() {
+        return "gamer-registration";
     }
 
 }
