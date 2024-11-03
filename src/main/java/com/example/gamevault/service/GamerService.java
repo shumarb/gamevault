@@ -109,7 +109,7 @@ public class GamerService {
 
     public Person login(String username, String password) throws UnsuccessfulLoginException {
         logger.info("Validating login credentials (username & password). Username: {}", username);
-        Optional<Person> personOptional = personRepository.findByEmail(username);
+        Optional<Person> personOptional = personRepository.findByUsername(username);
         if (personOptional.isEmpty()) {
             logger.error("Unsuccessful login as username is not found: {}", username);
             throw new UnsuccessfulLoginException();
