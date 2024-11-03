@@ -24,8 +24,5 @@ __MACOSX
 *.png
 *.jpg
 
-# application.properties ###
-**/application.properties
-
 # Target files ###
 /target/
