@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/side-navigation-bar.css">
+    <title>Side Navigation Bar</title>
+</head>
+<body>
+<div th:fragment="sidebar" class="sidebar">
+    <p class="navbar-brand">GameVault</p>
+    <a>Catalogue</a>
+    <a>Reservations</a>
+    <form th:action="@{/gamer/logout}" method="post">
+        <button type="submit" class="logout">Logout</button>
+    </form>
+</div>
+</body>
+</html>
