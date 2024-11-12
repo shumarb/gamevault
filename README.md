@@ -10,10 +10,10 @@ It's key features include:
 - Programming:
   - Java.
 - Frameworks & Tools: 
-  - Spring Boot, Spring Security, Spring Data JPA.
+  - Spring Boot.
+  - Thymeleaf.
   - Lombok.
   - MySQL.
-  - Thymeleaf.
   - JUnit, Mockito.
   - Git.
   - HTML/CSS.
