@@ -1,0 +1,22 @@
+/* video-game-table.css */
+.video-game-table {
+    width: auto; /* Set width to auto to allow flexing */
+    border-collapse: collapse;
+    color: white;
+}
+
+.video-game-table th {
+    background-color: #181818;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    font-size: 14px;
+    color: white;
+}
+
+.video-game-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    min-width: 120px;
+    color: white;
+}

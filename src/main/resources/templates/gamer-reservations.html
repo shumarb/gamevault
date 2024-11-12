@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/messages.css">
     <link rel="stylesheet" type="text/css" href="/static/css/side-navigation-bar.css">
     <link rel="stylesheet" type="text/css" href="/static/css/video-game-table.css">
-    <title>Home</title>
+    <title>Reservations</title>
 </head>
 <body>
 
@@ -15,10 +15,9 @@
 <div th:replace="~{gamer-side-navigation-bar :: sidebar}"></div>
 
 <div class="container content my-5">
-    <h1>Welcome, <span th:text="${username}"></span>!</h1>
+    <h1>Reservations</h1>
     <p>Total Credits: <span th:text="${totalCredits}"></span></p>
-    <h2>Video Game Catalogue</h2>
-
+    
     <!-- Error and Success Messages -->
     <div th:if="${error != null}" class="error">
         <p th:text="${error}"></p>
@@ -33,37 +32,37 @@
             <thead>
             <tr>
                 <th>Title</th>
-                <th>Company</th>
-                <th>Credits</th>
-                <th>Quantity</th>
+                <th>Creator</th>
+                <th>Quantity Reserved</th>
+                <th>Cost</th>
+                <th>Paid Credits (Non-refundable)</th>
+                <th>Credits Payable</th>
+                <th>Reservation Date</th>
+                <th>Purchase By</th>
                 <th>Options</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="game: ${videoGames}">
-                <td th:text="${game.title}"></td>
-                <td th:text="${game.creator}"></td>
-                <td th:text="${game.credits}"></td>
-                <td th:text="${game.quantity}"></td>
+            <tr th:each="reservation: ${reservations}">
+                <td th:text="${reservation.title}"></td>
+                <td th:text="${reservation.creator}"></td>
+                <td th:text="${reservation.quantity}"></td>
+                <td th:text="${reservation.cost}"></td>
+                <td th:text="${reservation.creditsPaid}"></td>
+                <td th:text="${reservation.creditsToPay}"></td>
+                <td th:text="${reservation.transactionDateTime}"></td>
+                <td th:text="${reservation.latestPurchaseDate}"></td>
                 <td>
                     <!-- Buy Form -->
-                    <form th:action="@{/gamer/buy}" method="post">
-                        <input type="hidden" th:name="gameId" th:value="${game.id}" />
-                        <label id="quantity">Quantity:</label>
-                        <label>
-                            <input type="number" name="quantity" min="1" th:max="${game.quantity}" value="1" required />
-                        </label>
+                    <form th:action="@{/gamer/reservations/buy}" method="post">
+                        <input type="hidden" th:name="reservationId" th:value="${reservation.id}" />
                         <button type="submit" class="btn btn-primary">Buy</button>
                     </form>
 
-                    <!-- Reserve Form -->
-                    <form th:action="@{/gamer/reserve}" method="post">
-                        <input type="hidden" th:name="gameId" th:value="${game.id}" />
-                        <label id="quantity">Quantity:</label>
-                        <label>
-                            <input type="number" name="quantity" min="1" th:max="${game.quantity}" value="1" required />
-                        </label>
-                        <button type="submit" class="btn btn-primary">Reserve</button>
+                    <!-- Cancel Form -->
+                    <form th:action="@{/gamer/reservations/cancel}" method="post">
+                        <input type="hidden" th:name="reservationId" th:value="${reservation.id}" />
+                        <button type="submit" class="btn btn-cancel">Cancel</button>
                     </form>
                 </td>
             </tr>

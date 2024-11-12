@@ -1,0 +1,9 @@
+/* home.css */
+h1, h2 {
+    color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #181818;
+}

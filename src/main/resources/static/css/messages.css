@@ -1,0 +1,15 @@
+/** messages.css **/
+.error,
+.success {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.error {
+    color: #ff6347;
+}
+
+.success {
+    color: #32cd32;
+}

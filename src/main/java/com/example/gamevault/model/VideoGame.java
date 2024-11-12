@@ -3,11 +3,14 @@ package com.example.gamevault.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "video_games")
 @NoArgsConstructor
 @Getter
+@ToString
 public class VideoGame {
 
     @Id
@@ -16,25 +19,19 @@ public class VideoGame {
 
     @Column(unique = true)
     private String title;
-    private String companyName;
-    private int yearOfPublication;
-    private int quantity;
-    private int credits;
 
-    public VideoGame(String title, String companyName, int yearOfPublication, int quantity, int credits) {
+    private String creator;
+
+    @Setter
+    private int quantity;
+
+    private double credits;
+
+    public VideoGame(String title, String creator, int quantity, double credits) {
         this.title = title;
-        this.companyName = companyName;
-        this.yearOfPublication = yearOfPublication;
+        this.creator = creator;
         this.quantity = quantity;
         this.credits = credits;
-    }
-
-    public void decreaseQuantityByOne() {
-        quantity--;
-    }
-
-    public void increaseQuantityByOne() {
-        quantity++;
     }
 
 }

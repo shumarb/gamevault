@@ -3,6 +3,7 @@ package com.example.gamevault.controller;
 import com.example.gamevault.exception.*;
 import com.example.gamevault.model.Gamer;
 import com.example.gamevault.model.Person;
+import com.example.gamevault.security.PersonPrincipal;
 import com.example.gamevault.service.GamerService;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,12 +21,15 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GamerControllerTest {
-
+    
     @Mock
     private GamerService gamerService;
 
     @Mock
     private HttpSession httpSession;
+
+    @Mock
+    private Model model;
 
     @Mock
     private RedirectAttributes redirectAttributes;
@@ -56,44 +61,44 @@ public class GamerControllerTest {
     }
 
     @Test
-    void showGamerLoginPage_returnsGamerLoginView() {
-        String viewName = gamerController.retrieveGamerLoginPage();
+    void goToGamerLoginPage_returnsGamerLoginView() {
+        String viewName = gamerController.goToGamerLoginPage(httpSession, model);
         assertEquals(viewName, "gamer-login");
     }
 
     @Test
-    void showGamerLoginPage_doesNotReturnGamerHomeView() {
-        String viewName = gamerController.retrieveGamerLoginPage();
+    void goToGamerLoginPage_doesNotReturnGamerHomeView() {
+        String viewName = gamerController.goToGamerLoginPage(httpSession, model);
         assertNotEquals(viewName, "gamer-home");
     }
 
     @Test
-    void showGamerLoginPage_doesNotReturnGamerGamerRegistrationView() {
-        String viewName = gamerController.retrieveGamerLoginPage();
+    void goToGamerLoginPage_doesNotReturnGamerGamerRegistrationView() {
+        String viewName = gamerController.goToGamerLoginPage(httpSession, model);
         assertNotEquals(viewName, "gamer-registration");
     }
 
     @Test
-    void retrieveGamerRegistrationPage_returnsGamerGamerRegistrationView() {
-        String viewName = gamerController.retrieveGamerRegistrationPage();
+    void goToGamerRegistrationPage_returnsGamerGamerRegistrationView() {
+        String viewName = gamerController.goToGamerRegistrationPage();
         assertEquals(viewName, "gamer-registration");
     }
 
     @Test
-    void retrieveGamerRegistrationPage_doesNotReturnGamerHomeView() {
-        String viewName = gamerController.retrieveGamerRegistrationPage();
+    void goToGamerRegistrationPage_doesNotReturnGamerHomeView() {
+        String viewName = gamerController.goToGamerRegistrationPage();
         assertNotEquals(viewName, "gamer-home");
     }
 
     @Test
-    void retrieveGamerRegistrationPage_doesNotReturnGamerIndexView() {
-        String viewName = gamerController.retrieveGamerRegistrationPage();
+    void goToGamerRegistrationPage_doesNotReturnGamerIndexView() {
+        String viewName = gamerController.goToGamerRegistrationPage();
         assertNotEquals(viewName, "gamer-index");
     }
 
     @Test
-    void retrieveGamerRegistrationPage_doesNotReturnGamerLoginView() {
-        String viewName = gamerController.retrieveGamerRegistrationPage();
+    void goToGamerRegistrationPage_doesNotReturnGamerLoginView() {
+        String viewName = gamerController.goToGamerRegistrationPage();
         assertNotEquals(viewName, "gamer-login");
     }
 
@@ -169,7 +174,7 @@ public class GamerControllerTest {
         verify(gamerService).register(validName, validUsername, validEmail, validPassword);
         verify(redirectAttributes).addFlashAttribute("success", "Registration successful. Please log in.");
     }
-
+    
     @Test
     void loginGamer_withValidUsernameAndInvalidPassword_returnsGamerLoginPage_withCorrectErrorMessageDisplayed() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(validUsername, invalidPassword);
@@ -245,7 +250,8 @@ public class GamerControllerTest {
     @Test
     void loginGamer_withValidUsernameAndValidPassword_returnsHomePage() throws UnsuccessfulLoginException {
         Person gamer = new Gamer("Jamal Hassan", "jamalhassan876", validEmail, validPassword);
-        when(gamerService.login(validUsername, validPassword)).thenReturn(gamer);
+        PersonPrincipal personPrincipal = new PersonPrincipal(gamer);
+        when(gamerService.login(validUsername, validPassword)).thenReturn(personPrincipal);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
         assertEquals(viewName, "redirect:/gamer/home");
     }
@@ -253,7 +259,8 @@ public class GamerControllerTest {
     @Test
     void loginGamer_withValidUsernameAndValidPassword_doesNotReturnGamerLoginPage() throws UnsuccessfulLoginException {
         Person gamer = new Gamer("Jamal Hassan", "jamalhassan876", validEmail, validPassword);
-        when(gamerService.login(validUsername, validPassword)).thenReturn(gamer);
+        PersonPrincipal personPrincipal = new PersonPrincipal(gamer);
+        when(gamerService.login(validUsername, validPassword)).thenReturn(personPrincipal);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
         assertNotEquals(viewName, "redirect:/gamer/login");
     }

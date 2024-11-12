@@ -1,30 +1,38 @@
 package com.example.gamevault.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Table(name = "gamer")
+@Getter
+@Setter
 public class Gamer extends Person {
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gamer_id")
-    private List<VideoGame> reservedVideoGames;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
+    private List<PurchaseTransaction> purchaseHistory;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gamer_id")
-    private List<VideoGame> reservedPurchases;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
+    private List<ReservationTransaction> reservationHistory;
 
-    private int totalCredits;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
+    private List<CancelTransaction> cancellationHistory;
+
+    private double totalCredits;
 
     public Gamer(String name, String username, String email, String password) {
         super(name, username, email, password);
-        reservedVideoGames = new ArrayList<>();
-        totalCredits = 100;
+        purchaseHistory = new ArrayList<>();
+        
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        totalCredits = Double.parseDouble(decimalFormat.format(100)); // Default number of credits
     }
 
     @Override
@@ -32,28 +40,39 @@ public class Gamer extends Person {
         return "GAMER";
     }
 
-    public void addToReservedVideoGames(VideoGame videoGame) {
-        reservedVideoGames.add(videoGame);
+    public void addPurchaseTransaction(PurchaseTransaction purchaseTransaction) {
+        if (purchaseHistory == null) {
+            purchaseHistory = new ArrayList<>();
+        }
+        purchaseHistory.add(0, purchaseTransaction);
     }
 
-    public void removeFromReservedVideoGames(VideoGame videoGame) {
-        reservedVideoGames.remove(videoGame);
+    public void addCancelTransaction(CancelTransaction cancelTransaction) {
+        if (cancellationHistory == null) {
+            cancellationHistory = new ArrayList<>();
+        }
+        cancellationHistory.add(0, cancelTransaction);
     }
 
-    public void addToPurchasedVideoGames(VideoGame videoGame) {
-        reservedVideoGames.add(videoGame);
+    public void addReservationTransaction(ReservationTransaction reservationTransaction) {
+        if (reservationHistory == null) {
+            reservationHistory = new ArrayList<>();
+        }
+        reservationHistory.add(0, reservationTransaction);
     }
 
-    public void removeFromPurchasedVideoGames(VideoGame videoGame) {
-        reservedVideoGames.remove(videoGame);
+    public void removeReservationTransaction(ReservationTransaction reservationTransaction) {
+        reservationHistory.remove(reservationTransaction);
     }
 
-    public void increaseCredits(int amount) {
-        totalCredits += amount;
-    }
-
-    public void decreaseCredits(int amount) {
-        totalCredits -= amount;
+    @Override
+    public String toString() {
+        return "Gamer{" +
+                "purchaseHistory=" + purchaseHistory +
+                ", reservationHistory=" + reservationHistory +
+                ", cancellationHistory=" + cancellationHistory +
+                ", totalCredits=" + totalCredits +
+                '}';
     }
 
 }

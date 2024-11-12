@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/messages.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/side-navigation-bar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/video-game-table.css">
+    <title>Purchases</title>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div th:replace="~{gamer-side-navigation-bar :: sidebar}"></div>
+
+<div class="container content my-5">
+    <h1>Purchases</h1>
+    <p>Total Credits: <span th:text="${totalCredits}"></span></p>
+
+    <div class="video-game-table">
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Creator</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Purchase Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="purchase: ${purchases}">
+                <td th:text="${purchase.title}"></td>
+                <td th:text="${purchase.creator}"></td>
+                <td th:text="${purchase.quantity}"></td>
+                <td th:text="${purchase.cost}"></td>
+                <td th:text="${purchase.transactionDateTime}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

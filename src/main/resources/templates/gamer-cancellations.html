@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/messages.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/side-navigation-bar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/video-game-table.css">
+    <title>Cancellations</title>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div th:replace="~{gamer-side-navigation-bar :: sidebar}"></div>
+
+<div class="container content my-5">
+    <h1>Cancellations</h1>
+    <p>Total Credits: <span th:text="${totalCredits}"></span></p>
+
+    <div class="video-game-table">
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Creator</th>
+                <th>Total Quantity Bought</th>
+                <th>Total Cost</th>
+                <th>Total Credits Paid (Non-refundable)</th>
+                <th>Total Credits Payable</th>
+                <th>Date of Reservation</th>
+                <th>Purchase By</th>
+                <th>Date of Cancellation</th>
+                <th>Reason</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cancellation: ${cancellations}">
+                <td th:text="${cancellation.title}"></td>
+                <td th:text="${cancellation.creator}"></td>
+                <td th:text="${cancellation.quantity}"></td>
+                <td th:text="${cancellation.cost}"></td>
+                <td th:text="${cancellation.creditsPaid}"></td>
+                <td th:text="${cancellation.creditsToPay}"></td>
+                <td th:text="${cancellation.transactionDateTime}"></td>
+                <td th:text="${cancellation.latestPurchaseDate}"></td>
+                <td th:text="${cancellation.dateOfCancellation}"></td>
+                <td>Manual Cancellation</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
