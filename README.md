@@ -16,7 +16,7 @@ It's key features include:
   - MySQL.
   - JUnit, Mockito.
   - Git.
-  - HTML/CSS.
+  - HTML, CSS.
 
 ## Prerequisites
 - Java 17.
