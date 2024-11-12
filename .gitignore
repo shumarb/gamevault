@@ -11,7 +11,7 @@
 #.classpath
 #.settings
 #.metadata
-#.idea
+#**/.idea
 #target
 
 # Mac Specific ###
