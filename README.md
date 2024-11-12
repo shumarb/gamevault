@@ -50,4 +50,5 @@ It's key features include:
     - Drop all tables in the schema.
     - Close and reopen IntelliJ IDEA.
 7. Enter `localhost:9001/` in your browser after seeing the message `Started GamevaultApplication...` in the `console`.
-8. Explore the application and data stored in the theMySQL Workbench.
+8. Explore the application and examine data in the MySQL Workbench.
+
