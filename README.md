@@ -7,16 +7,14 @@ It's key features include:
 - `Reserving` one or more `video games`, with the option to either complete the `purchase`or `cancel` these reservations.
 
 ## Tech Stack
-- Programming: Java.
-- Frameworks/Tools: 
-  - Spring Boot.
-  - Spring Security.
-  - Spring Data JPA.
+- Programming:
+  - Java.
+- Frameworks & Tools: 
+  - Spring Boot, Spring Security, Spring Data JPA.
   - Lombok.
   - MySQL.
   - Thymeleaf.
-  - Mockito.
-  - JUnit.
+  - JUnit, Mockito.
   - Git.
   - HTML/CSS.
 
