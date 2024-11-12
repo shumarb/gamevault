@@ -2,7 +2,7 @@ package com.example.gamevault.service;
 
 import com.example.gamevault.exception.InsufficientVideoGameQuantityException;
 import com.example.gamevault.exception.VideoGameNotFoundException;
-import com.example.gamevault.model.ReservationTransaction;
+import com.example.gamevault.model.Reservation;
 import com.example.gamevault.model.VideoGame;
 import com.example.gamevault.repository.VideoGameRepository;
 import org.apache.logging.log4j.LogManager;
@@ -74,14 +74,14 @@ public class VideoGameService {
         throw new VideoGameNotFoundException();
     }
 
-    public void increaseVideoGameQuantity(ReservationTransaction reservationTransaction) throws VideoGameNotFoundException {
-        String title = reservationTransaction.getTitle();
-        int quantity = reservationTransaction.getQuantity();
+    public void increaseVideoGameQuantity(Reservation reservation) throws VideoGameNotFoundException {
+        String title = reservation.getTitle();
+        int quantity = reservation.getQuantity();
         logger.info("Currently at increaseVideoGameQuality method. Title: {}, Quantity: {}", title, quantity);
         logger.info("Finding VideoGame with title: {}", title);
         if (videoGameRepository.findByTitle(title).isEmpty()) {
             logger.info("Video game not in catalogue. Create one and add it in.");
-            VideoGame videoGame = new VideoGame(title, reservationTransaction.getCreator(), reservationTransaction.getQuantity(), reservationTransaction.getCost());
+            VideoGame videoGame = new VideoGame(title, reservation.getCreator(), reservation.getQuantity(), reservation.getCost());
             logger.info("Created and saved videoGame: {}", videoGame.toString());
             videoGameRepository.save(videoGame);
 

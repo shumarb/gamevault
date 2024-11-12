@@ -20,7 +20,7 @@ public class Gamer extends Person {
     private List<PurchaseTransaction> purchaseHistory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
-    private List<ReservationTransaction> reservationHistory;
+    private List<Reservation> reservationHistory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
     private List<CancelTransaction> cancellationHistory;
@@ -54,15 +54,15 @@ public class Gamer extends Person {
         cancellationHistory.add(0, cancelTransaction);
     }
 
-    public void addReservationTransaction(ReservationTransaction reservationTransaction) {
+    public void addReservationTransaction(Reservation reservation) {
         if (reservationHistory == null) {
             reservationHistory = new ArrayList<>();
         }
-        reservationHistory.add(0, reservationTransaction);
+        reservationHistory.add(0, reservation);
     }
 
-    public void removeReservationTransaction(ReservationTransaction reservationTransaction) {
-        reservationHistory.remove(reservationTransaction);
+    public void removeReservationTransaction(Reservation reservation) {
+        reservationHistory.remove(reservation);
     }
 
     @Override

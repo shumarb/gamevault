@@ -33,35 +33,35 @@ public class TransactionService {
         return purchaseTransaction;
     }
 
-    public ReservationTransaction createReservationTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
+    public Reservation createReservationTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
         double totalCost = videoGame.getCredits() * (double) quantity;
         logger.info("Currently at successfulReservation method. Gamer: {}, VideoGame: {}, Quantity: {}, TotalCost: {}", gamer, videoGame, quantity, totalCost);
-        ReservationTransaction reservationTransaction = new ReservationTransaction(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
-        reservationTransactionRepository.save(reservationTransaction);
-        logger.info("Created and saved ReservationTransaction ({}) for Gamer: {}", reservationTransaction, gamer.toString());
-        return reservationTransaction;
+        Reservation reservation = new Reservation(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
+        reservationTransactionRepository.save(reservation);
+        logger.info("Created and saved Reservation ({}) for Gamer: {}", reservation, gamer.toString());
+        return reservation;
     }
 
-    public ReservationTransaction getReservationTransaction(long id) throws ReservationTransactionNotFoundException {
-        logger.info("Currently at getReservationTransaction method, finding ReservationTransaction with id {}", id);
+    public Reservation getReservationTransaction(long id) throws ReservationTransactionNotFoundException {
+        logger.info("Currently at getReservationTransaction method, finding Reservation with id {}", id);
         if (reservationTransactionRepository.findById(id).isPresent()) {
-            ReservationTransaction reservationTransaction = reservationTransactionRepository.findById(id).get();
-            logger.info("Found ReservationTransaction: {}", reservationTransaction.toString());
-            return reservationTransaction;
+            Reservation reservation = reservationTransactionRepository.findById(id).get();
+            logger.info("Found Reservation: {}", reservation.toString());
+            return reservation;
         }
         throw new ReservationTransactionNotFoundException();
     }
 
-    public CancelTransaction createCancelTransaction(Gamer gamer, ReservationTransaction reservationTransaction) {
-        logger.info("Currently at createCancelTransaction method. CancelTransaction for Gamer ({}) involving ReservationTransaction: {}", reservationTransaction.toString(), gamer.toString());
+    public CancelTransaction createCancelTransaction(Gamer gamer, Reservation reservation) {
+        logger.info("Currently at createCancelTransaction method. CancelTransaction for Gamer ({}) involving Reservation: {}", reservation.toString(), gamer.toString());
         CancelTransaction cancelTransaction = new CancelTransaction(
-                reservationTransaction.getTitle(),
-                reservationTransaction.getCreator(),
-                reservationTransaction.getQuantity(),
-                reservationTransaction.getCost(),
-                reservationTransaction.getCreditsPaid(),
-                reservationTransaction.getCreditsToPay(),
-                reservationTransaction.getLatestPurchaseDate(),
+                reservation.getTitle(),
+                reservation.getCreator(),
+                reservation.getQuantity(),
+                reservation.getCost(),
+                reservation.getCreditsPaid(),
+                reservation.getCreditsToPay(),
+                reservation.getLatestPurchaseDate(),
                 gamer);
         saveCancelTransaction(cancelTransaction);
         logger.info("Created CancelTransaction, saved into CancelTransactionRepository: {}", cancelTransaction.toString());
@@ -73,10 +73,10 @@ public class TransactionService {
         cancelTransactionRepository.save(cancelTransaction);
     }
 
-    public void deleteReservationTransaction(ReservationTransaction reservationTransaction) {
-        logger.info("Deleting ReservationTransaction ({}) from ReservationTransactionRepository.", reservationTransaction.toString());
-        reservationTransactionRepository.delete(reservationTransaction);
-        logger.info("Deleted aforementioned ReservationTransaction from ReservationTransactionRepository.");
+    public void deleteReservationTransaction(Reservation reservation) {
+        logger.info("Deleting Reservation ({}) from ReservationTransactionRepository.", reservation.toString());
+        reservationTransactionRepository.delete(reservation);
+        logger.info("Deleted aforementioned Reservation from ReservationTransactionRepository.");
     }
 
 }
