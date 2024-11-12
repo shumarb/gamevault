@@ -22,7 +22,7 @@ It's key features include:
 - Java 17.
 - Git.
 - IntelliJ IDEA.
-- MySQL, and MySQL Workbench.
+- MySQL, MySQL Workbench.
 
 ## Setup
 1. `Clone` this repository.
