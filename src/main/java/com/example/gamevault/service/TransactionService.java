@@ -23,14 +23,14 @@ public class TransactionService {
     @Autowired
     private CancelTransactionRepository cancelTransactionRepository;
 
-    public PurchaseTransaction createPurchaseTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
+    public Purchase createPurchaseTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
         double videoGameCost = videoGame.getCredits();
         double totalCost = videoGameCost * (double) quantity;
         logger.info("Currently at successfulPurchase method. Gamer: {}, VideoGame: {}, Quantity: {}, TotalCost: {}", gamer, videoGame, quantity, totalCost);
-        PurchaseTransaction purchaseTransaction = new PurchaseTransaction(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
-        purchaseTransactionRepository.save(purchaseTransaction);
-        logger.info("Created and saved PurchaseTransaction ({}) for Gamer: {}", purchaseTransaction.toString(), gamer.toString());
-        return purchaseTransaction;
+        Purchase purchase = new Purchase(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
+        purchaseTransactionRepository.save(purchase);
+        logger.info("Created and saved Purchase ({}) for Gamer: {}", purchase.toString(), gamer.toString());
+        return purchase;
     }
 
     public Reservation createReservationTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
@@ -52,9 +52,9 @@ public class TransactionService {
         throw new ReservationTransactionNotFoundException();
     }
 
-    public CancelTransaction createCancelTransaction(Gamer gamer, Reservation reservation) {
-        logger.info("Currently at createCancelTransaction method. CancelTransaction for Gamer ({}) involving Reservation: {}", reservation.toString(), gamer.toString());
-        CancelTransaction cancelTransaction = new CancelTransaction(
+    public Cancellation createCancelTransaction(Gamer gamer, Reservation reservation) {
+        logger.info("Currently at createCancelTransaction method. Cancellation for Gamer ({}) involving Reservation: {}", reservation.toString(), gamer.toString());
+        Cancellation cancellation = new Cancellation(
                 reservation.getTitle(),
                 reservation.getCreator(),
                 reservation.getQuantity(),
@@ -63,14 +63,14 @@ public class TransactionService {
                 reservation.getCreditsToPay(),
                 reservation.getLatestPurchaseDate(),
                 gamer);
-        saveCancelTransaction(cancelTransaction);
-        logger.info("Created CancelTransaction, saved into CancelTransactionRepository: {}", cancelTransaction.toString());
-        return cancelTransaction;
+        saveCancelTransaction(cancellation);
+        logger.info("Created Cancellation, saved into CancelTransactionRepository: {}", cancellation.toString());
+        return cancellation;
     }
 
-    public void saveCancelTransaction(CancelTransaction cancelTransaction) {
-        logger.info("Saving CancelTransaction ({}) into CancelTransactionRepository.", cancelTransaction.toString());
-        cancelTransactionRepository.save(cancelTransaction);
+    public void saveCancelTransaction(Cancellation cancellation) {
+        logger.info("Saving Cancellation ({}) into CancelTransactionRepository.", cancellation.toString());
+        cancelTransactionRepository.save(cancellation);
     }
 
     public void deleteReservationTransaction(Reservation reservation) {

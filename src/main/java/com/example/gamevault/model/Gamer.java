@@ -17,13 +17,13 @@ import java.util.List;
 public class Gamer extends Person {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
-    private List<PurchaseTransaction> purchaseHistory;
+    private List<Purchase> purchaseHistory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
     private List<Reservation> reservationHistory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gamer")
-    private List<CancelTransaction> cancellationHistory;
+    private List<Cancellation> cancellationHistory;
 
     private double totalCredits;
 
@@ -40,18 +40,18 @@ public class Gamer extends Person {
         return "GAMER";
     }
 
-    public void addPurchaseTransaction(PurchaseTransaction purchaseTransaction) {
+    public void addPurchaseTransaction(Purchase purchase) {
         if (purchaseHistory == null) {
             purchaseHistory = new ArrayList<>();
         }
-        purchaseHistory.add(0, purchaseTransaction);
+        purchaseHistory.add(0, purchase);
     }
 
-    public void addCancelTransaction(CancelTransaction cancelTransaction) {
+    public void addCancelTransaction(Cancellation cancellation) {
         if (cancellationHistory == null) {
             cancellationHistory = new ArrayList<>();
         }
-        cancellationHistory.add(0, cancelTransaction);
+        cancellationHistory.add(0, cancellation);
     }
 
     public void addReservationTransaction(Reservation reservation) {

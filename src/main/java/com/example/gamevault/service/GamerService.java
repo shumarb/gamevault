@@ -196,9 +196,9 @@ public class GamerService {
     }
 
     @Transactional
-    public void addPurchaseTransactionForGamer(Gamer gamer, PurchaseTransaction purchaseTransaction) {
-        logger.info("Adding PurchaseTransaction({}) to Gamer's({}) purchase history.", purchaseTransaction.toString(), gamer.toString());
-        gamer.addPurchaseTransaction(purchaseTransaction);
+    public void addPurchaseTransactionForGamer(Gamer gamer, Purchase purchase) {
+        logger.info("Adding Purchase({}) to Gamer's({}) purchase history.", purchase.toString(), gamer.toString());
+        gamer.addPurchaseTransaction(purchase);
         saveGamer(gamer);
     }
 
@@ -213,10 +213,10 @@ public class GamerService {
         saveGamer(gamer);
     }
 
-    public void addCancelTransaction(Gamer gamer, CancelTransaction cancelTransaction) {
-        logger.info("Adding CancelTransaction ({}) for Gamer ({})", cancelTransaction.toString(), gamer.toString());
-        gamer.addCancelTransaction(cancelTransaction);
-        logger.info("Added CancelTransaction ({}) for Gamer ({})", cancelTransaction.toString(), gamer.toString());
+    public void addCancelTransaction(Gamer gamer, Cancellation cancellation) {
+        logger.info("Adding Cancellation ({}) for Gamer ({})", cancellation.toString(), gamer.toString());
+        gamer.addCancelTransaction(cancellation);
+        logger.info("Added Cancellation ({}) for Gamer ({})", cancellation.toString(), gamer.toString());
     }
 
     public void removeReservationTransaction(Gamer gamer, Reservation reservation) {
