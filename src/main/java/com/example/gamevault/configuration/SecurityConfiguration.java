@@ -1,4 +1,4 @@
-package com.example.gamevault.security;
+package com.example.gamevault.configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
