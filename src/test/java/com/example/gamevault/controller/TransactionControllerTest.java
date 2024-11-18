@@ -90,7 +90,7 @@ class TransactionControllerTest {
         verify(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "purchase");
         verify(transactionService).createPurchaseTransaction(gamer, videoGame2, quantity);
         verify(gamerService).deductCredits(gamer, videoGame2, quantity, "purchase");
-        verify(gamerService).addPurchaseTransactionForGamer(gamer, purchase);
+        verify(gamerService).addPurchaseToGamerPurchaseHistory(gamer, purchase);
         verify(redirectAttributes).addFlashAttribute("success", "Successful purchase.");
         assertEquals("redirect:/gamer/home", result);
     }
@@ -137,7 +137,7 @@ class TransactionControllerTest {
         verify(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "reservation");
         verify(transactionService).createReservationTransaction(gamer, videoGame2, quantity);
         verify(gamerService).deductCredits(gamer, videoGame2, quantity, "reservation");
-        verify(gamerService).addReservationTransactionForGamer(gamer, reservation);
+        verify(gamerService).addReservationToGamerReservationHistory(gamer, reservation);
         verify(redirectAttributes).addFlashAttribute("success", "Successful reservation.");
         assertEquals("redirect:/gamer/home", result);
     }

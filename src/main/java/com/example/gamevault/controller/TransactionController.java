@@ -43,7 +43,7 @@ public class TransactionController {
                 videoGameService.updateVideoGameQuantity(videoGame, quantity,"purchase");
                 Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, quantity);
                 gamerService.deductCredits(gamer, videoGame, quantity, "purchase");
-                gamerService.addPurchaseTransactionForGamer(gamer, purchase);
+                gamerService.addPurchaseToGamerPurchaseHistory(gamer, purchase);
                 logger.info("Successful purchase: {}. Redirection to Gamer Home page with success message displayed.", purchase.toString());
                 redirectAttributes.addFlashAttribute("success", "Successful purchase.");
             }
@@ -80,8 +80,8 @@ public class TransactionController {
             if (videoGameService.hasSufficientQuantityForTransaction(videoGame, quantity) && gamerService.canAffordTransaction(gamer, videoGame, quantity, "reservation")) {
                 videoGameService.updateVideoGameQuantity(videoGame, quantity,"reservation");
                 Reservation reservation = transactionService.createReservationTransaction(gamer, videoGame, quantity);
-                gamerService.deductCreditsForReservation(gamer, videoGame, quantity, "reservation");
-                gamerService.addReservationTransactionForGamer(gamer, reservation);
+                gamerService.deductCredits(gamer, videoGame, quantity, "reservation");
+                gamerService.addReservationToGamerReservationHistory(gamer, reservation);
                 logger.info("Successful reservation: {}. Redirection to Gamer Home page with success message displayed.", reservation.toString());
                 redirectAttributes.addFlashAttribute("success", "Successful reservation.");
             }
@@ -112,8 +112,8 @@ public class TransactionController {
             Reservation reservation = transactionService.getReservationTransaction(reservationId);
             logger.info("Cancellation of Reservation ({}) for Gamer ({})", gamer.toString(), reservation.toString());
             Cancellation cancellation = transactionService.createCancelTransaction(gamer, reservation);
-            gamerService.addCancelTransaction(gamer, cancellation);
-            gamerService.removeReservationTransaction(gamer, reservation);
+            gamerService.addCancellationToGamerCancellationHistory(gamer, cancellation);
+            gamerService.removeReservationFromGamerReservationHistory(gamer, reservation);
             videoGameService.increaseVideoGameQuantity(reservation);
             transactionService.deleteReservationTransaction(reservation);
             model.addAttribute("success", "Successful cancellation.");
@@ -148,8 +148,8 @@ public class TransactionController {
             if (gamerService.canAffordTransaction(gamer, videoGame, reservation.getQuantity(), "complete purchase of reservation")) {
                 Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, reservation.getQuantity());
                 gamerService.deductCredits(gamer, videoGame, reservation.getQuantity(), "complete purchase of reservation");
-                gamerService.addPurchaseTransactionForGamer(gamer, purchase);
-                gamerService.removeReservationTransaction(gamer, reservation);
+                gamerService.addPurchaseToGamerPurchaseHistory(gamer, purchase);
+                gamerService.removeReservationFromGamerReservationHistory(gamer, reservation);
                 logger.info("Successful purchase of reservation game/games: {}. Redirection to Gamer Home page with success message displayed.", purchase.toString());
                 model.addAttribute("success", "Successful purchase");
                 model.addAttribute("purchases", gamer.getPurchaseHistory());

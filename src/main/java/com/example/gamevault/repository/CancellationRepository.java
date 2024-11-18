@@ -1,10 +1,10 @@
 package com.example.gamevault.repository;
 
-import com.example.gamevault.model.Reservation;
+import com.example.gamevault.model.Cancellation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservationTransactionRepository extends JpaRepository<Reservation, Long> {
+public interface CancellationRepository extends JpaRepository<Cancellation, Long> {
 
 }

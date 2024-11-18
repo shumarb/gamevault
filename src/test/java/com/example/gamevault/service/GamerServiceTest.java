@@ -81,7 +81,7 @@ class GamerServiceTest {
     }
 
     @Test
-    void addPurchaseTransactionForGamer() {
+    void addPurchaseToGamerPurchaseHistory() {
     }
 
     @Test
@@ -89,14 +89,14 @@ class GamerServiceTest {
     }
 
     @Test
-    void addReservationTransactionForGamer() {
+    void addReservationToGamerReservationHistory() {
     }
 
     @Test
-    void addCancelTransaction() {
+    void addCancellationToGamerCancellationHistory() {
     }
 
     @Test
-    void removeReservationTransaction() {
+    void removeReservationFromGamerReservationHistory() {
     }
 }
