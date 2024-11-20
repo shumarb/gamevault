@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc19b66f-7927-4e8e-8920-5ddfd65e2769" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/controller/AdministratorController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/controller/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Administrator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/CancelTransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/CancellationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/PurchaseTransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/PurchaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/ReservationTransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/repository/ReservationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/AdministratorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/GamerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/GamerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/TransactionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/administrator-home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/administrator-index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/administrator-login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/administrator-registration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/administrator-side-navigation-bar.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/AdministratorControllerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/TransactionControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/TransactionControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/model/PersonTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gamevault/model/PersonTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/service/GamerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gamevault/service/GamerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,10 +42,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "code-refactoring",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RunManager" selected="Application.GamevaultApplication">

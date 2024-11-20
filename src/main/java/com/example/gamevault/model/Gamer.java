@@ -68,9 +68,9 @@ public class Gamer extends Person {
     @Override
     public String toString() {
         return "Gamer{" +
-                "purchaseHistory=" + purchaseHistory +
-                ", reservationHistory=" + reservationHistory +
-                ", cancellationHistory=" + cancellationHistory +
+                "purchases=" + purchaseHistory.size() +
+                ", reservations=" + reservationHistory.size() +
+                ", cancellations=" + cancellationHistory.size() +
                 ", totalCredits=" + totalCredits +
                 '}';
     }
