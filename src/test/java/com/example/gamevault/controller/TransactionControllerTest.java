@@ -2,7 +2,7 @@ package com.example.gamevault.controller;
 
 import com.example.gamevault.exception.InsufficientCreditsForTransactionException;
 import com.example.gamevault.exception.InsufficientVideoGameQuantityException;
-import com.example.gamevault.exception.UnavailableVideoGame;
+import com.example.gamevault.exception.UnavailableVideoGameException;
 import com.example.gamevault.model.Gamer;
 import com.example.gamevault.model.Purchase;
 import com.example.gamevault.model.Reservation;
@@ -50,7 +50,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void buyVideoGame_unsuccessfulDueToInsufficientQuantity() throws InsufficientVideoGameQuantityException, UnavailableVideoGame {
+    void buyVideoGame_unsuccessfulDueToInsufficientQuantity() throws InsufficientVideoGameQuantityException, UnavailableVideoGameException {
         int quantity = 15;
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
         when(videoGameService.getVideoGame(1L)).thenReturn(videoGame1);
@@ -61,7 +61,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void buyVideoGame_unsuccessfulDueToInsufficientCredits() throws InsufficientCreditsForTransactionException, UnavailableVideoGame {
+    void buyVideoGame_unsuccessfulDueToInsufficientCredits() throws InsufficientCreditsForTransactionException, UnavailableVideoGameException {
         int quantity = 1;
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
         when(videoGameService.getVideoGame(2L)).thenReturn(videoGame2);
@@ -71,7 +71,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void buyVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGame {
+    void buyVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGameException {
         int quantity = 1;
         Purchase purchase = new Purchase(videoGame2.getTitle(), videoGame2.getCreator(), 1, videoGame2.getCredits(), gamer);
 
@@ -97,7 +97,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void reserveVideoGame_unsuccessfulDueToInsufficientQuantity() throws InsufficientVideoGameQuantityException, UnavailableVideoGame {
+    void reserveVideoGame_unsuccessfulDueToInsufficientQuantity() throws InsufficientVideoGameQuantityException, UnavailableVideoGameException {
         int quantity = 15;
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
         when(videoGameService.getVideoGame(1L)).thenReturn(videoGame1);
@@ -108,7 +108,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void reserveVideoGame_unsuccessfulDueToInsufficientCredits() throws InsufficientCreditsForTransactionException, UnavailableVideoGame {
+    void reserveVideoGame_unsuccessfulDueToInsufficientCredits() throws InsufficientCreditsForTransactionException, UnavailableVideoGameException {
         int quantity = 1;
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
         when(videoGameService.getVideoGame(2L)).thenReturn(videoGame2);
@@ -118,7 +118,7 @@ class TransactionControllerTest {
     }
 
     @Test
-    void reserveVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGame {
+    void reserveVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGameException {
         int quantity = 1;
         Reservation reservation = new Reservation(videoGame2.getTitle(), videoGame2.getCreator(), 1, videoGame2.getCredits(), gamer);
 
