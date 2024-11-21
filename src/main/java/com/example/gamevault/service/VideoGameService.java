@@ -1,33 +1,55 @@
+/**
+ * Service class responsible for managing video game-related operations.
+ * It interacts with the `VideoGameRepository` to persist and retrieve video games data and handles various exceptions related
+ * to a transaction involving one more video games.
+ */
 package com.example.gamevault.service;
 
 import com.example.gamevault.exception.InsufficientVideoGameQuantityException;
+import com.example.gamevault.exception.UnavailableVideoGame;
 import com.example.gamevault.exception.VideoGameNotFoundException;
+import com.example.gamevault.model.Gamer;
 import com.example.gamevault.model.Reservation;
 import com.example.gamevault.model.VideoGame;
+import com.example.gamevault.repository.GamerRepository;
 import com.example.gamevault.repository.VideoGameRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VideoGameService {
+
+    /**
+     * Logger to monitor operational flow and facilitate troubleshooting.
+     */
     private static final Logger logger = LogManager.getLogger(VideoGameService.class);
 
+    /**
+     * {@link VideoGameRepository} for managing {@link VideoGame} entities.
+     */
     @Autowired
     private VideoGameRepository videoGameRepository;
 
-    public List<VideoGame> getAllVideoGames() {
-        logger.info("Retrieving all video games in the database.");
-        return videoGameRepository.findAll();
-    }
-
-    public VideoGame getVideoGame(long id) {
+    /**
+     * Gets a video game by its identification number (id).
+     * @param id The identification number of the video game.
+     * @return {@link VideoGame} with specified identified id
+     *
+     */
+    public VideoGame getVideoGame(long id) throws UnavailableVideoGame {
         logger.info("Search attempt of VideoGame object with id {}", id);
-        return videoGameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found."));
+        VideoGame videoGame;
+        Optional<VideoGame> videoGameOptional = videoGameRepository.findById(id);
+        if (videoGameOptional.isPresent()) {
+            videoGame = videoGameOptional.get();
+            logger.info("Found, and returning VideoGame with id {}: {}", id, videoGame.toString());
+        }
+        logger.error("No VideoGame with id of {} found.", id);
+        throw new UnavailableVideoGame();
     }
 
     public boolean hasSufficientQuantityForTransaction(VideoGame videoGame, int quantity) throws InsufficientVideoGameQuantityException {
@@ -56,11 +78,6 @@ public class VideoGameService {
                 videoGameRepository.save(videoGame);
             }
         }
-    }
-
-    public double getVideoGameCost(Long gameId) {
-        VideoGame videoGame = getVideoGame(gameId);
-        return videoGame.getCredits();
     }
 
     public VideoGame getVideoGame(String title) throws VideoGameNotFoundException {
@@ -93,6 +110,6 @@ public class VideoGameService {
             videoGame.setQuantity(updatedQuantity);
             logger.info("Increased quantity. After: {}.", videoGame.toString());
         }
-
     }
+
 }

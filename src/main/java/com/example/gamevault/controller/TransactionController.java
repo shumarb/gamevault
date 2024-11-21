@@ -1,9 +1,6 @@
 package com.example.gamevault.controller;
 
-import com.example.gamevault.exception.InsufficientCreditsForTransactionException;
-import com.example.gamevault.exception.InsufficientVideoGameQuantityException;
-import com.example.gamevault.exception.ReservationTransactionNotFoundException;
-import com.example.gamevault.exception.VideoGameNotFoundException;
+import com.example.gamevault.exception.*;
 import com.example.gamevault.model.*;
 import com.example.gamevault.service.GamerService;
 import com.example.gamevault.service.TransactionService;
@@ -58,7 +55,12 @@ public class TransactionController {
             logger.error("Unsuccessful purchase due to insufficient credits. Redirection to Gamer Home page with error message displayed.");
             redirectAttributes.addFlashAttribute("error", "Unsuccessful purchase - Insufficient credits to purchase video games in quantity specified.");
 
-        } catch (Exception e) {
+        } catch (UnavailableVideoGame e) {
+            e.printStackTrace();
+            logger.error("Unsuccessful purchase due to unavailable video game. Redirection to Gamer Home page with error message displayed.");
+            redirectAttributes.addFlashAttribute("error", "Unsuccessful purchase - Video Game specified is unavailable.");
+
+        }  catch (Exception e) {
             e.printStackTrace();
             logger.fatal("Unsuccessful purchase due to unexpected error. Redirection to Gamer Home page with error message displayed.");
             redirectAttributes.addFlashAttribute("error", "Unexpected error occurred. Please try again later.");
@@ -89,12 +91,17 @@ public class TransactionController {
         } catch (InsufficientVideoGameQuantityException e) {
             e.printStackTrace();
             logger.error("Unsuccessful reservation due to insufficient video game quantity. Redirection to Gamer Home page with error message displayed.");
-            redirectAttributes.addFlashAttribute("error", "Unsuccessful purchase - Insufficient video games available.");
+            redirectAttributes.addFlashAttribute("error", "Unsuccessful reservation - Insufficient video games available.");
 
         } catch (InsufficientCreditsForTransactionException e) {
             e.printStackTrace();
             logger.error("Unsuccessful reservation due to insufficient credits. Redirection to Gamer Home page with error message displayed.");
-            redirectAttributes.addFlashAttribute("error", "Unsuccessful purchase - Insufficient credits to purchase video games in quantity specified.");
+            redirectAttributes.addFlashAttribute("error", "Unsuccessful reservation - Insufficient credits to purchase video games in quantity specified.");
+
+        } catch (UnavailableVideoGame e) {
+            e.printStackTrace();
+            logger.error("Unsuccessful reservation due to unavailable video game. Redirection to Gamer with error message displayed.");
+            redirectAttributes.addFlashAttribute("error", "Unsuccessful reservation - Video Game specified is unavailable.");
 
         } catch (Exception e) {
             e.printStackTrace();
