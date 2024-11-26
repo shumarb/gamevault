@@ -102,22 +102,17 @@ public class VideoGameService {
         throw new VideoGameNotFoundException();
     }
 
-    public void increaseVideoGameQuantity(Reservation reservation) throws VideoGameNotFoundException {
-        String title = reservation.getTitle();
-        int quantity = reservation.getTotalQuantity();
-        logger.info("Currently at increaseVideoGameQuality method. Title: {}, Quantity: {}", title, quantity);
-        logger.info("Finding VideoGame with title: {}", title);
-        if (videoGameRepository.findByTitle(title).isEmpty()) {
+    public void increaseVideoGameQuantity(Reservation reservation) throws VideoGameNotFoundException, UnavailableVideoGameException {
+        logger.info("Currently at increaseVideoGameQuality method. ReservationId: {}, ", reservation.getId());
+        if (videoGameRepository.findById(reservation.getVideoGameId()).isEmpty()) {
             logger.info("Video game not in catalogue. Create one and add it in.");
-            VideoGame videoGame = new VideoGame(title, reservation.getCreator(), reservation.getTotalQuantity(), reservation.getTotalCost());
-            logger.info("Created and saved videoGame: {}", videoGame.toString());
-            videoGameRepository.save(videoGame);
+            throw new VideoGameNotFoundException();
 
         } else {
-            VideoGame videoGame = getVideoGame(title);
+            VideoGame videoGame = videoGameRepository.findById(reservation.getVideoGameId()).get();
             logger.info("Increasing quantity. Before: {}.", videoGame.toString());
             int currentQuantity = videoGame.getQuantity();
-            int updatedQuantity = currentQuantity + quantity;
+            int updatedQuantity = currentQuantity + reservation.getTotalQuantity();
             videoGame.setQuantity(updatedQuantity);
             logger.info("Increased quantity. After: {}.", videoGame.toString());
         }

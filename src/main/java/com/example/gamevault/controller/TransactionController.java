@@ -38,7 +38,7 @@ public class TransactionController {
             logger.info("Purchase attempt. Gamer: {}, Video Game: {}, Quantity: {}", gamer.toString(), videoGame.toString(), quantity);
             if (videoGameService.hasSufficientQuantityForTransaction(videoGame, quantity) && gamerService.canAffordTransaction(gamer, videoGame, quantity, "purchase")) {
                 videoGameService.updateVideoGameQuantity(videoGame, quantity,"purchase");
-                Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, quantity);
+                Purchase purchase = transactionService.createPurchaseTransaction(gamer.getId(), videoGame.getId(), quantity);
                 gamerService.deductCredits(gamer, videoGame, quantity, "purchase");
                 gamerService.addPurchaseToGamerPurchaseHistory(gamer, purchase);
                 logger.info("Successful purchase: {}. Redirection to Gamer Home page with success message displayed.", purchase.toString());
@@ -81,7 +81,7 @@ public class TransactionController {
 
             if (videoGameService.hasSufficientQuantityForTransaction(videoGame, quantity) && gamerService.canAffordTransaction(gamer, videoGame, quantity, "reservation")) {
                 videoGameService.updateVideoGameQuantity(videoGame, quantity,"reservation");
-                Reservation reservation = transactionService.createReservationTransaction(gamer, videoGame, quantity);
+                Reservation reservation = transactionService.createReservationTransaction(gamer.getId(), videoGame.getId(), quantity);
                 gamerService.deductCredits(gamer, videoGame, quantity, "reservation");
                 gamerService.addReservationToGamerReservationHistory(gamer, reservation);
                 logger.info("Successful reservation: {}. Redirection to Gamer Home page with success message displayed.", reservation.toString());
@@ -130,7 +130,7 @@ public class TransactionController {
             logger.error("Cannot find reservationTransaction. Cancellation voided.");
             model.addAttribute("error", "Order to cancel cannot be found.");
 
-        } catch (VideoGameNotFoundException e) {
+        } catch (VideoGameNotFoundException | UnavailableVideoGameException e) {
             e.printStackTrace();
             logger.error("Cannot find VideoGame to update. Cancellation voided.");
             model.addAttribute("error", "Video Game specified in order cannot be found.");
@@ -145,15 +145,17 @@ public class TransactionController {
     }
 
     @PostMapping("/gamer/reservations/buy")
-    public String completePurchaseOfReservation(@RequestParam("reservationId") Long reservationTransactionId, Model model) {
+    public String completePurchaseOfReservation(@RequestParam("reservationId") Long reservationTransactionId,
+                                                @RequestParam("gameId") Long gameId,
+                                                Model model) {
         Gamer gamer = gamerService.getCurrentGamer();
 
         try {
             Reservation reservation = transactionService.getReservationTransaction(reservationTransactionId);
             logger.info("Purchase of Reservation ({}) for Gamer ({}).", reservation.toString(), gamer.toString());
-            VideoGame videoGame = videoGameService.getVideoGame(reservation.getTitle());
+            VideoGame videoGame = videoGameService.getVideoGame(gameId);
             if (gamerService.canAffordTransaction(gamer, videoGame, reservation.getTotalQuantity(), "complete purchase of reservation")) {
-                Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, reservation.getTotalQuantity());
+                Purchase purchase = transactionService.createPurchaseTransaction(gamer.getId(), videoGame.getId(), reservation.getTotalQuantity());
                 gamerService.deductCredits(gamer, videoGame, reservation.getTotalQuantity(), "complete purchase of reservation");
                 gamerService.addPurchaseToGamerPurchaseHistory(gamer, purchase);
                 gamerService.removeReservationFromGamerReservationHistory(gamer, reservation);
@@ -167,7 +169,7 @@ public class TransactionController {
             logger.error("Cannot find reservationTransaction. Purchase voided.");
             model.addAttribute("error", "Unsuccessful purchase - Reservation not found.");
 
-        } catch (VideoGameNotFoundException e) {
+        } catch (UnavailableVideoGameException e) {
             e.printStackTrace();
             logger.error("Cannot find VideoGame. Purchase voided.");
             model.addAttribute("error", "Unsuccessful purchase - Video Game in Reservation not found.");
