@@ -104,12 +104,12 @@ public class VideoGameService {
 
     public void increaseVideoGameQuantity(Reservation reservation) throws VideoGameNotFoundException {
         String title = reservation.getTitle();
-        int quantity = reservation.getQuantity();
+        int quantity = reservation.getTotalQuantity();
         logger.info("Currently at increaseVideoGameQuality method. Title: {}, Quantity: {}", title, quantity);
         logger.info("Finding VideoGame with title: {}", title);
         if (videoGameRepository.findByTitle(title).isEmpty()) {
             logger.info("Video game not in catalogue. Create one and add it in.");
-            VideoGame videoGame = new VideoGame(title, reservation.getCreator(), reservation.getQuantity(), reservation.getCost());
+            VideoGame videoGame = new VideoGame(title, reservation.getCreator(), reservation.getTotalQuantity(), reservation.getTotalCost());
             logger.info("Created and saved videoGame: {}", videoGame.toString());
             videoGameRepository.save(videoGame);
 

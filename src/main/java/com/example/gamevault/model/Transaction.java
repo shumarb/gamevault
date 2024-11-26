@@ -17,29 +17,25 @@ public abstract class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gamer_id")
-    private Gamer gamer;
+    private long gamerId;
 
-    private String title;
+    private long videoGameId;
 
-    private String creator;
+    private int totalQuantity;
 
-    private int quantity;
-
-    private double cost;
+    private double totalCost;
 
     private String transactionDateTime;
 
-    public Transaction(String title, String creator, int quantity, double cost, Gamer gamer) {
-        this.title = title;
-        this.creator = creator;
-        this.quantity = quantity;
-        this.cost = cost;
+    public Transaction(long gamerId, long videoGameId, int totalQuantity, double totalCost) {
+        this.gamerId = gamerId;
+        this.videoGameId = videoGameId;
+        this.totalQuantity = totalQuantity;
+        this.totalCost = totalCost;
+
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.transactionDateTime = dateTimeFormatter.format(localDateTime);
-        this.gamer = gamer;
     }
 
 }

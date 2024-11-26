@@ -19,11 +19,11 @@ public class Cancellation extends Transaction {
     private String dateOfCancellation;
     private String reasonOfCancellation = "Manual Cancellation";
 
-    public Cancellation(String title, String creator, int quantity, double reservationCost, double creditsPaid, double creditsToPay, String latestPurchaseDate, Gamer gamer) {
-        super(title, creator, quantity, reservationCost, gamer);
-        this.creditsPaid = creditsPaid;
-        this.creditsToPay = creditsToPay;
-        this.latestPurchaseDate = latestPurchaseDate;
+    public Cancellation(Reservation reservation) {
+        super(reservation.getGamerId(), reservation.getVideoGameId(), reservation.getTotalQuantity(), reservation.getTotalCost());
+        this.creditsPaid = reservation.getCreditsPaid();
+        this.creditsToPay = reservation.getCreditsToPay();
+        this.latestPurchaseDate = reservation.getLatestPurchaseDate();
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.dateOfCancellation = dateTimeFormatter.format(localDateTime);

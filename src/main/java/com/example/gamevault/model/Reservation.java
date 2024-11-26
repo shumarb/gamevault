@@ -18,8 +18,8 @@ public class Reservation extends Transaction {
     private double creditsPaid;
     private double creditsToPay;
 
-    public Reservation(String title, String creator, int quantity, double reservationCost, Gamer gamer) {
-        super(title, creator, quantity, reservationCost, gamer);
+    public Reservation(long gamerId, long videoGameId, int totalQuantity, double reservationCost) {
+        super(gamerId, videoGameId, totalQuantity, reservationCost);
         creditsPaid = roundToTwoDecimalPlaces(0.2 * reservationCost);
         creditsToPay = roundToTwoDecimalPlaces(reservationCost - creditsPaid);
         LocalDateTime transactionDateTime = LocalDateTime.parse(super.getTransactionDateTime(), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));

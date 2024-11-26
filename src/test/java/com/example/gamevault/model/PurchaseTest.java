@@ -8,12 +8,13 @@ public class PurchaseTest {
 
     @Test
     void createPurchaseTransaction_success() {
-        Gamer gamer = new Gamer("Ali Hassan", "alihassan", "ali_hassan@gmail.com", "QQaa123!");
-        Transaction purchaseTransaction = new Purchase("FIFA 19", "EA Sports", 2, 20, gamer);
-        assertEquals(purchaseTransaction.getTitle(), "FIFA 19");
-        assertEquals(purchaseTransaction.getCreator(), "EA Sports");
-        assertEquals(purchaseTransaction.getQuantity(), 2);
-        assertEquals(purchaseTransaction.getCost(), 20);
+        long gamerId = 1L;
+        long videoGameId = 2L;
+        int totalQuantity = 2;
+        double totalCost = 20;
+        Transaction purchase = new Purchase(gamerId, videoGameId, totalQuantity, totalCost);
+        assertEquals(2, purchase.getTotalQuantity());
+        assertEquals(20, purchase.getTotalCost());
     }
 
 }

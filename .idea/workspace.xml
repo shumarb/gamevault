@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc19b66f-7927-4e8e-8920-5ddfd65e2769" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/controller/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Purchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/model/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/TransactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/VideoGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gamevault/service/VideoGameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/TransactionControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/TransactionControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gamevault/model/PurchaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gamevault/model/PurchaseTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +44,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Application.GamevaultApplication.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PersonTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TransactionControllerTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TransactionControllerTest.reserveVideoGame_success.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TransactionControllerTest.reserveVideoGame_unsuccessfulDueToInsufficientQuantity.executor&quot;: &quot;Run&quot;,
@@ -52,7 +61,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TransactionControllerTest">
+  <component name="RunManager" selected="Application.GamevaultApplication">
     <configuration name="GamevaultApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -68,7 +77,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PurchaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="gamevault" />
       <extension name="coverage">
         <pattern>
@@ -77,7 +86,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.gamevault.model" />
-      <option name="MAIN_CLASS_NAME" value="com.example.gamevault.model.PersonTest" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gamevault.model.PurchaseTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -138,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GamevaultApplication" />
+        <item itemvalue="JUnit.PurchaseTest" />
         <item itemvalue="JUnit.TransactionControllerTest" />
         <item itemvalue="JUnit.TransactionControllerTest.reserveVideoGame_unsuccessfulDueToInsufficientQuantity" />
         <item itemvalue="JUnit.TransactionControllerTest.reserveVideoGame_success" />
-        <item itemvalue="Application.GamevaultApplication" />
-        <item itemvalue="JUnit.PersonTest" />
       </list>
     </recent_temporary>
   </component>
@@ -162,7 +171,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/com/example/gamevault/controller/TransactionControllerTest.java</url>
-          <line>120</line>
+          <line>122</line>
           <properties class="com.example.gamevault.controller.TransactionControllerTest" method="reserveVideoGame_success">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

@@ -152,9 +152,9 @@ public class TransactionController {
             Reservation reservation = transactionService.getReservationTransaction(reservationTransactionId);
             logger.info("Purchase of Reservation ({}) for Gamer ({}).", reservation.toString(), gamer.toString());
             VideoGame videoGame = videoGameService.getVideoGame(reservation.getTitle());
-            if (gamerService.canAffordTransaction(gamer, videoGame, reservation.getQuantity(), "complete purchase of reservation")) {
-                Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, reservation.getQuantity());
-                gamerService.deductCredits(gamer, videoGame, reservation.getQuantity(), "complete purchase of reservation");
+            if (gamerService.canAffordTransaction(gamer, videoGame, reservation.getTotalQuantity(), "complete purchase of reservation")) {
+                Purchase purchase = transactionService.createPurchaseTransaction(gamer, videoGame, reservation.getTotalQuantity());
+                gamerService.deductCredits(gamer, videoGame, reservation.getTotalQuantity(), "complete purchase of reservation");
                 gamerService.addPurchaseToGamerPurchaseHistory(gamer, purchase);
                 gamerService.removeReservationFromGamerReservationHistory(gamer, reservation);
                 logger.info("Successful purchase of reservation game/games: {}. Redirection to Gamer Home page with success message displayed.", purchase.toString());

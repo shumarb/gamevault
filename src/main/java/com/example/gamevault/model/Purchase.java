@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Purchase extends Transaction {
-    public Purchase(String title, String creator, int quantityBought, double totalCost, Gamer gamer) {
-        super(title, creator, quantityBought, totalCost, gamer);
+    public Purchase(long gamerId, long videoGameId, int quantity, double totalCost) {
+        super(gamerId, videoGameId, quantity, totalCost);
     }
 
 }

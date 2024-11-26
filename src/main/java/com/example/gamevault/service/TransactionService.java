@@ -1,6 +1,7 @@
 package com.example.gamevault.service;
 
 import com.example.gamevault.exception.ReservationTransactionNotFoundException;
+import com.example.gamevault.exception.UnavailableVideoGameException;
 import com.example.gamevault.model.*;
 import com.example.gamevault.repository.CancellationRepository;
 import com.example.gamevault.repository.PurchaseRepository;
@@ -15,7 +16,7 @@ public class TransactionService {
     private static final Logger logger = LogManager.getLogger(TransactionService.class);
 
     @Autowired
-    private PurchaseRepository purchaseTransactionRepository;
+    private PurchaseRepository purchaseRepository;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -23,22 +24,27 @@ public class TransactionService {
     @Autowired
     private CancellationRepository cancellationRepository;
 
-    public Purchase createPurchaseTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
+    @Autowired
+    private VideoGameService videoGameService;
+
+    public Purchase createPurchaseTransaction(long gamerId, long videoGameId, int quantity) throws UnavailableVideoGameException {
+        logger.info("Currently at createPurchaseTransaction method. gamerId: {}, videoGameId: {}, quantity: {}", gamerId, videoGameId, quantity);
+        VideoGame videoGame = videoGameService.getVideoGame(videoGameId);
         double videoGameCost = videoGame.getCredits();
         double totalCost = videoGameCost * (double) quantity;
-        logger.info("Currently at successfulPurchase method. Gamer: {}, VideoGame: {}, Quantity: {}, TotalCost: {}", gamer, videoGame, quantity, totalCost);
-        Purchase purchase = new Purchase(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
-        purchaseTransactionRepository.save(purchase);
-        logger.info("Created and saved Purchase ({}) for Gamer: {}", purchase.toString(), gamer.toString());
+        Purchase purchase = new Purchase(gamerId, videoGameId, quantity, totalCost);
+        purchaseRepository.save(purchase);
+        logger.info("Created and saved Purchase ({}) for Gamer with Id: {}", purchase.toString(), gamerId);
         return purchase;
     }
 
-    public Reservation createReservationTransaction(Gamer gamer, VideoGame videoGame, int quantity) {
+    public Reservation createReservationTransaction(long gamerId, long videoGameId, int quantity) throws UnavailableVideoGameException {
+        logger.info("Currently at createReservationTransaction method. gamerId: {}, videoGameId: {}, quantity: {}", gamerId, videoGameId, quantity);
+        VideoGame videoGame = videoGameService.getVideoGame(videoGameId);
         double totalCost = videoGame.getCredits() * (double) quantity;
-        logger.info("Currently at successfulReservation method. Gamer: {}, VideoGame: {}, Quantity: {}, TotalCost: {}", gamer, videoGame, quantity, totalCost);
-        Reservation reservation = new Reservation(videoGame.getTitle(), videoGame.getCreator(), quantity, totalCost, gamer);
+        Reservation reservation = new Reservation(gamerId, videoGameId, quantity, totalCost);
         reservationRepository.save(reservation);
-        logger.info("Created and saved Reservation ({}) for Gamer: {}", reservation, gamer.toString());
+        logger.info("Created and saved Reservation ({}) for Gamer with Id: {}", reservation.toString(), gamerId);
         return reservation;
     }
 
@@ -54,15 +60,7 @@ public class TransactionService {
 
     public Cancellation createCancelTransaction(Gamer gamer, Reservation reservation) {
         logger.info("Currently at createCancelTransaction method. Cancellation for Gamer ({}) involving Reservation: {}", reservation.toString(), gamer.toString());
-        Cancellation cancellation = new Cancellation(
-                reservation.getTitle(),
-                reservation.getCreator(),
-                reservation.getQuantity(),
-                reservation.getCost(),
-                reservation.getCreditsPaid(),
-                reservation.getCreditsToPay(),
-                reservation.getLatestPurchaseDate(),
-                gamer);
+        Cancellation cancellation = new Cancellation(reservation);
         saveCancelTransaction(cancellation);
         logger.info("Created Cancellation, saved into CancellationRepository: {}", cancellation.toString());
         return cancellation;

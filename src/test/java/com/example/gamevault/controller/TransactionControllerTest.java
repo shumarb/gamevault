@@ -72,25 +72,27 @@ class TransactionControllerTest {
 
     @Test
     void buyVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGameException {
-        int quantity = 1;
-        Purchase purchase = new Purchase(videoGame2.getTitle(), videoGame2.getCreator(), 1, videoGame2.getCredits(), gamer);
+        int totalQuantityBought = 1;
+        long gamerId = 1L;
+        long videoGameId = 2L;
+        Purchase purchase = new Purchase(gamerId, videoGameId, totalQuantityBought, totalQuantityBought * videoGame2.getCredits());
 
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
-        when(videoGameService.getVideoGame(2L)).thenReturn(videoGame2);
-        when(videoGameService.hasSufficientQuantityForTransaction(videoGame2, quantity)).thenReturn(true);
-        when(gamerService.canAffordTransaction(gamer, videoGame2, quantity, "purchase")).thenReturn(true);
-        when(transactionService.createPurchaseTransaction(gamer, videoGame2, quantity)).thenReturn(purchase);
-        doNothing().when(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "purchase");
-        doNothing().when(gamerService).deductCredits(gamer, videoGame2, quantity, "purchase");
+        when(videoGameService.getVideoGame(videoGameId)).thenReturn(videoGame2);
+        when(videoGameService.hasSufficientQuantityForTransaction(videoGame2, totalQuantityBought)).thenReturn(true);
+        when(gamerService.canAffordTransaction(gamer, videoGame2, totalQuantityBought, "purchase")).thenReturn(true);
+        when(transactionService.createPurchaseTransaction(gamerId, videoGameId, totalQuantityBought)).thenReturn(purchase);
+        doNothing().when(videoGameService).updateVideoGameQuantity(videoGame2, totalQuantityBought, "purchase");
+        doNothing().when(gamerService).deductCredits(gamer, videoGame2, totalQuantityBought, "purchase");
 
-        String result = transactionController.buyVideoGame(2L, quantity, redirectAttributes);
+        String result = transactionController.buyVideoGame(2L, totalQuantityBought, redirectAttributes);
         verify(gamerService).getCurrentGamer();
         verify(videoGameService).getVideoGame(2L);
-        verify(videoGameService).hasSufficientQuantityForTransaction(videoGame2, quantity);
-        verify(gamerService).canAffordTransaction(gamer, videoGame2, quantity, "purchase");
-        verify(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "purchase");
-        verify(transactionService).createPurchaseTransaction(gamer, videoGame2, quantity);
-        verify(gamerService).deductCredits(gamer, videoGame2, quantity, "purchase");
+        verify(videoGameService).hasSufficientQuantityForTransaction(videoGame2, totalQuantityBought);
+        verify(gamerService).canAffordTransaction(gamer, videoGame2, totalQuantityBought, "purchase");
+        verify(videoGameService).updateVideoGameQuantity(videoGame2, totalQuantityBought, "purchase");
+        verify(transactionService).createPurchaseTransaction(gamerId, videoGameId, totalQuantityBought);
+        verify(gamerService).deductCredits(gamer, videoGame2, totalQuantityBought, "purchase");
         verify(gamerService).addPurchaseToGamerPurchaseHistory(gamer, purchase);
         verify(redirectAttributes).addFlashAttribute("success", "Successful purchase.");
         assertEquals("redirect:/gamer/home", result);
@@ -119,25 +121,27 @@ class TransactionControllerTest {
 
     @Test
     void reserveVideoGame_success() throws InsufficientVideoGameQuantityException, InsufficientCreditsForTransactionException, UnavailableVideoGameException {
-        int quantity = 1;
-        Reservation reservation = new Reservation(videoGame2.getTitle(), videoGame2.getCreator(), 1, videoGame2.getCredits(), gamer);
+        int totalQuantityBought = 1;
+        long gamerId = 1L;
+        long videoGameId = 2L;
+        Reservation reservation = new Reservation(gamerId, videoGameId, totalQuantityBought, 0.2 * videoGame2.getCredits());
 
         when(gamerService.getCurrentGamer()).thenReturn(gamer);
         when(videoGameService.getVideoGame(2L)).thenReturn(videoGame2);
-        when(videoGameService.hasSufficientQuantityForTransaction(videoGame2, quantity)).thenReturn(true);
-        when(gamerService.canAffordTransaction(gamer, videoGame2, quantity, "reservation")).thenReturn(true);
-        when(transactionService.createReservationTransaction(gamer, videoGame2, quantity)).thenReturn(reservation);
-        doNothing().when(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "reservation");
-        doNothing().when(gamerService).deductCredits(gamer, videoGame2, quantity, "reservation");
+        when(videoGameService.hasSufficientQuantityForTransaction(videoGame2, totalQuantityBought)).thenReturn(true);
+        when(gamerService.canAffordTransaction(gamer, videoGame2, totalQuantityBought, "reservation")).thenReturn(true);
+        when(transactionService.createReservationTransaction(gamer, videoGame2, totalQuantityBought)).thenReturn(reservation);
+        doNothing().when(videoGameService).updateVideoGameQuantity(videoGame2, totalQuantityBought, "reservation");
+        doNothing().when(gamerService).deductCredits(gamer, videoGame2, totalQuantityBought, "reservation");
 
-        String result = transactionController.reserveVideoGame(2L, quantity, redirectAttributes);
+        String result = transactionController.reserveVideoGame(2L, totalQuantityBought, redirectAttributes);
         verify(gamerService).getCurrentGamer();
         verify(videoGameService).getVideoGame(2L);
-        verify(videoGameService).hasSufficientQuantityForTransaction(videoGame2, quantity);
-        verify(gamerService).canAffordTransaction(gamer, videoGame2, quantity, "reservation");
-        verify(videoGameService).updateVideoGameQuantity(videoGame2, quantity, "reservation");
-        verify(transactionService).createReservationTransaction(gamer, videoGame2, quantity);
-        verify(gamerService).deductCredits(gamer, videoGame2, quantity, "reservation");
+        verify(videoGameService).hasSufficientQuantityForTransaction(videoGame2, totalQuantityBought);
+        verify(gamerService).canAffordTransaction(gamer, videoGame2, totalQuantityBought, "reservation");
+        verify(videoGameService).updateVideoGameQuantity(videoGame2, totalQuantityBought, "reservation");
+        verify(transactionService).createReservationTransaction(gamer, videoGame2, totalQuantityBought);
+        verify(gamerService).deductCredits(gamer, videoGame2, totalQuantityBought, "reservation");
         verify(gamerService).addReservationToGamerReservationHistory(gamer, reservation);
         verify(redirectAttributes).addFlashAttribute("success", "Successful reservation.");
         assertEquals("redirect:/gamer/home", result);
