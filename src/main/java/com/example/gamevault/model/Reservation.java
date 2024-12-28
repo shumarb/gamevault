@@ -13,12 +13,12 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ReservationTransaction extends Transaction {
+public class Reservation extends Transaction {
     private String latestPurchaseDate;
     private double creditsPaid;
     private double creditsToPay;
 
-    public ReservationTransaction(String title, String creator, int quantity, double reservationCost, Gamer gamer) {
+    public Reservation(String title, String creator, int quantity, double reservationCost, Gamer gamer) {
         super(title, creator, quantity, reservationCost, gamer);
         creditsPaid = roundToTwoDecimalPlaces(0.2 * reservationCost);
         creditsToPay = roundToTwoDecimalPlaces(reservationCost - creditsPaid);

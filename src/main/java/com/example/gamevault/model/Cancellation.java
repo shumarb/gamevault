@@ -12,14 +12,14 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CancelTransaction extends Transaction {
+public class Cancellation extends Transaction {
     private String latestPurchaseDate;
     private double creditsPaid;
     private double creditsToPay;
     private String dateOfCancellation;
     private String reasonOfCancellation = "Manual Cancellation";
 
-    public CancelTransaction(String title, String creator, int quantity, double reservationCost, double creditsPaid, double creditsToPay, String latestPurchaseDate, Gamer gamer) {
+    public Cancellation(String title, String creator, int quantity, double reservationCost, double creditsPaid, double creditsToPay, String latestPurchaseDate, Gamer gamer) {
         super(title, creator, quantity, reservationCost, gamer);
         this.creditsPaid = creditsPaid;
         this.creditsToPay = creditsToPay;

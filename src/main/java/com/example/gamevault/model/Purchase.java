@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PurchaseTransaction extends Transaction {
-    public PurchaseTransaction(String title, String creator, int quantityBought, double totalCost, Gamer gamer) {
+public class Purchase extends Transaction {
+    public Purchase(String title, String creator, int quantityBought, double totalCost, Gamer gamer) {
         super(title, creator, quantityBought, totalCost, gamer);
     }
 

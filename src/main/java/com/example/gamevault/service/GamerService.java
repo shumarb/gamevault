@@ -196,9 +196,9 @@ public class GamerService {
     }
 
     @Transactional
-    public void addPurchaseTransactionForGamer(Gamer gamer, PurchaseTransaction purchaseTransaction) {
-        logger.info("Adding PurchaseTransaction({}) to Gamer's({}) purchase history.", purchaseTransaction.toString(), gamer.toString());
-        gamer.addPurchaseTransaction(purchaseTransaction);
+    public void addPurchaseTransactionForGamer(Gamer gamer, Purchase purchase) {
+        logger.info("Adding Purchase({}) to Gamer's({}) purchase history.", purchase.toString(), gamer.toString());
+        gamer.addPurchaseTransaction(purchase);
         saveGamer(gamer);
     }
 
@@ -207,22 +207,22 @@ public class GamerService {
         return (Gamer) person.getPerson();
     }
 
-    public void addReservationTransactionForGamer(Gamer gamer, ReservationTransaction reservationTransaction) {
-        logger.info("Adding ReservationTransaction({}) to Gamer's({}) purchase history.", reservationTransaction.toString(), gamer.toString());
-        gamer.addReservationTransaction(reservationTransaction);
+    public void addReservationTransactionForGamer(Gamer gamer, Reservation reservation) {
+        logger.info("Adding Reservation({}) to Gamer's({}) purchase history.", reservation.toString(), gamer.toString());
+        gamer.addReservationTransaction(reservation);
         saveGamer(gamer);
     }
 
-    public void addCancelTransaction(Gamer gamer, CancelTransaction cancelTransaction) {
-        logger.info("Adding CancelTransaction ({}) for Gamer ({})", cancelTransaction.toString(), gamer.toString());
-        gamer.addCancelTransaction(cancelTransaction);
-        logger.info("Added CancelTransaction ({}) for Gamer ({})", cancelTransaction.toString(), gamer.toString());
+    public void addCancelTransaction(Gamer gamer, Cancellation cancellation) {
+        logger.info("Adding Cancellation ({}) for Gamer ({})", cancellation.toString(), gamer.toString());
+        gamer.addCancelTransaction(cancellation);
+        logger.info("Added Cancellation ({}) for Gamer ({})", cancellation.toString(), gamer.toString());
     }
 
-    public void removeReservationTransaction(Gamer gamer, ReservationTransaction reservationTransaction) {
-        logger.info("Removing ReservationTransaction ({}) for Gamer ({}).", reservationTransaction, gamer);
-        gamer.removeReservationTransaction(reservationTransaction);
-        logger.info("Removing aforementioned ReservationTransaction for Gamer ({}).", gamer);
+    public void removeReservationTransaction(Gamer gamer, Reservation reservation) {
+        logger.info("Removing Reservation ({}) for Gamer ({}).", reservation, gamer);
+        gamer.removeReservationTransaction(reservation);
+        logger.info("Removing aforementioned Reservation for Gamer ({}).", gamer);
     }
 
     private void saveGamer(Gamer gamer) {
