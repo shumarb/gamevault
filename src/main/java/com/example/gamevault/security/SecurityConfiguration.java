@@ -39,8 +39,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/",
                                                     "/gamer/login",
                                                     "/gamer/registration",
-                                                    "/administrator/login",
-                                                    "/administrator/registration",
                                                     "/static/**")
                         .permitAll()
                         .anyRequest().authenticated()
