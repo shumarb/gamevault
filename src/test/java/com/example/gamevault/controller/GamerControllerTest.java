@@ -63,50 +63,50 @@ public class GamerControllerTest {
     @Test
     void goToGamerLoginPage_returnsGamerLoginView() {
         String viewName = gamerController.goToGamerLoginPage(httpSession, model);
-        assertEquals(viewName, "gamer-login");
+        assertEquals("gamer-login", viewName);
     }
 
     @Test
     void goToGamerLoginPage_doesNotReturnGamerHomeView() {
         String viewName = gamerController.goToGamerLoginPage(httpSession, model);
-        assertNotEquals(viewName, "gamer-home");
+        assertNotEquals("gamer-home", viewName);
     }
 
     @Test
     void goToGamerLoginPage_doesNotReturnGamerGamerRegistrationView() {
         String viewName = gamerController.goToGamerLoginPage(httpSession, model);
-        assertNotEquals(viewName, "gamer-registration");
+        assertNotEquals("gamer-registration", viewName);
     }
 
     @Test
     void goToGamerRegistrationPage_returnsGamerGamerRegistrationView() {
         String viewName = gamerController.goToGamerRegistrationPage();
-        assertEquals(viewName, "gamer-registration");
+        assertEquals("gamer-registration", viewName);
     }
 
     @Test
     void goToGamerRegistrationPage_doesNotReturnGamerHomeView() {
         String viewName = gamerController.goToGamerRegistrationPage();
-        assertNotEquals(viewName, "gamer-home");
+        assertNotEquals("gamer-home", viewName);
     }
 
     @Test
     void goToGamerRegistrationPage_doesNotReturnGamerIndexView() {
         String viewName = gamerController.goToGamerRegistrationPage();
-        assertNotEquals(viewName, "gamer-index");
+        assertNotEquals("gamer-index", viewName);
     }
 
     @Test
     void goToGamerRegistrationPage_doesNotReturnGamerLoginView() {
         String viewName = gamerController.goToGamerRegistrationPage();
-        assertNotEquals(viewName, "gamer-login");
+        assertNotEquals("gamer-login", viewName);
     }
 
     @Test
     void registerGamer_withInvalidName_returnsGamerRegistrationView() throws InvalidNameException, InvalidUsernameException, InvalidEmailAddressException, InvalidPasswordException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new InvalidNameException()).when(gamerService).register(invalidName, validUsername, validEmail, validPassword);
         String viewName = gamerController.register(invalidName, validUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(InvalidNameException.class, () -> gamerService.register(invalidName, validUsername, validEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid name entered. Please enter a valid name.");
     }
@@ -115,7 +115,7 @@ public class GamerControllerTest {
     void registerGamer_withInvalidUsername_returnsGamerRegistrationView() throws InvalidNameException, InvalidUsernameException, InvalidEmailAddressException, InvalidPasswordException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new InvalidUsernameException()).when(gamerService).register(validName, invalidUsername, validEmail, validPassword);
         String viewName = gamerController.register(validName, invalidUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(InvalidUsernameException.class, () -> gamerService.register(validName, invalidUsername, validEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username entered. Please enter a valid username.");
     }
@@ -124,7 +124,7 @@ public class GamerControllerTest {
     void registerGamer_withInvalidEmailAddress_returnsGamerRegistrationView() throws InvalidNameException, InvalidUsernameException, InvalidEmailAddressException, InvalidPasswordException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new InvalidEmailAddressException()).when(gamerService).register(validName, validUsername, invalidEmail, validPassword);
         String viewName = gamerController.register(validName, validUsername, invalidEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(InvalidEmailAddressException.class, () -> gamerService.register(validName, validUsername, invalidEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid email address entered. Please enter a valid email address.");
     }
@@ -133,7 +133,7 @@ public class GamerControllerTest {
     void registerGamer_withInvalidPassword_returnsGamerRegistrationView() throws InvalidNameException, InvalidEmailAddressException, InvalidUsernameException, InvalidPasswordException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new InvalidPasswordException()).when(gamerService).register(validName, validUsername, validEmail, invalidPassword);
         String viewName = gamerController.register(validName, validUsername, validEmail, invalidPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(InvalidPasswordException.class, () -> gamerService.register(validName, validUsername, validEmail, invalidPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid password entered. Please enter a valid password.");
     }
@@ -142,7 +142,7 @@ public class GamerControllerTest {
     void registerGamer_withUnavailableUsername_returnsGamerRegistrationView() throws InvalidNameException, InvalidEmailAddressException, InvalidPasswordException, InvalidUsernameException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new UnavailableUsernameException()).when(gamerService).register(validName, validUsername, validEmail, validPassword);
         String viewName = gamerController.register(validName, validUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(UnavailableUsernameException.class, () -> gamerService.register(validName, validUsername, validEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Username entered is unavailable. Please enter another username.");
     }
@@ -151,7 +151,7 @@ public class GamerControllerTest {
     void registerGamer_withUnavailableEmailAddress_returnsGamerRegistrationView() throws InvalidNameException, InvalidEmailAddressException, InvalidPasswordException, InvalidUsernameException, UnavailableUsernameException, UnavailableEmailAddressException {
         doThrow(new UnavailableEmailAddressException()).when(gamerService).register(validName, validUsername, validEmail, validPassword);
         String viewName = gamerController.register(validName, validUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(UnavailableEmailAddressException.class, () -> gamerService.register(validName, validUsername, validEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Email address entered is unavailable. Please enter another email address.");
     }
@@ -160,7 +160,7 @@ public class GamerControllerTest {
     void registerGamer_withValidRegistrationCredentials_andUnexpectedErrorThrown_returnsGamerLoginView() throws InvalidNameException, InvalidEmailAddressException, UnavailableEmailAddressException, InvalidPasswordException, InvalidUsernameException, UnavailableUsernameException {
         doThrow(new RuntimeException()).when(gamerService).register(validName, validUsername, validEmail, validPassword);
         String viewName = gamerController.register(validName, validUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/registration");
+        assertEquals("redirect:/gamer/registration", viewName);
         assertThrows(RuntimeException.class, () -> gamerService.register(validName, validUsername, validEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Unexpected error occurred. Please try again later.");
     }
@@ -170,7 +170,7 @@ public class GamerControllerTest {
         Person gamer = new Gamer(validName, validUsername, validEmail, validPassword);
         when(gamerService.register(validName, validUsername, validEmail, validPassword)).thenReturn(gamer);
         String viewName = gamerController.register(validName, validUsername, validEmail, validPassword, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/login");
+        assertEquals("redirect:/gamer/login", viewName);
         verify(gamerService).register(validName, validUsername, validEmail, validPassword);
         verify(redirectAttributes).addFlashAttribute("success", "Registration successful. Please log in.");
     }
@@ -179,7 +179,7 @@ public class GamerControllerTest {
     void loginGamer_withValidUsernameAndInvalidPassword_returnsGamerLoginPage_withCorrectErrorMessageDisplayed() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(validUsername, invalidPassword);
         String viewName = gamerController.login(validUsername, invalidPassword, httpSession, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/login");
+        assertEquals("redirect:/gamer/login", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(validUsername, invalidPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -188,7 +188,7 @@ public class GamerControllerTest {
     void loginGamer_withValidUsernameAndInvalidPassword_doesNotReturnGamerHomePage() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(validUsername, invalidPassword);
         String viewName = gamerController.login(validUsername, invalidPassword, httpSession, redirectAttributes);
-        assertNotEquals(viewName, "redirect:/gamer/home");
+        assertNotEquals("redirect:/gamer/home", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(validUsername, invalidPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -197,7 +197,7 @@ public class GamerControllerTest {
     void loginGamer_withInvalidEmailAddressAndValidPassword_returnsGamerLoginPage_withCorrectErrorMessageDisplayed() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(invalidEmail, validPassword);
         String viewName = gamerController.login(invalidEmail, validPassword, httpSession, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/login");
+        assertEquals("redirect:/gamer/login", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(invalidEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -206,7 +206,7 @@ public class GamerControllerTest {
     void loginGamer_withInvalidEmailAddressAndValidPassword_doesNotReturnGamerHomePage() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(invalidEmail, validPassword);
         String viewName = gamerController.login(invalidEmail, validPassword, httpSession, redirectAttributes);
-        assertNotEquals(viewName, "redirect:/gamer/home");
+        assertNotEquals("redirect:/gamer/home", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(invalidEmail, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -215,7 +215,7 @@ public class GamerControllerTest {
     void loginGamer_withInvalidEmailAddressAndInvalidPassword_returnsGamerLoginPage_withCorrectErrorMessageDisplayed() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(invalidEmail, invalidPassword);
         String viewName = gamerController.login(invalidEmail, invalidPassword, httpSession, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/login");
+        assertEquals("redirect:/gamer/login", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(invalidEmail, invalidPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -224,7 +224,7 @@ public class GamerControllerTest {
     void loginGamer_withInvalidEmailAddressAndInvalidPassword_doesNotReturnGamerHomePage() throws UnsuccessfulLoginException {
         doThrow(UnsuccessfulLoginException.class).when(gamerService).login(invalidEmail, invalidPassword);
         String viewName = gamerController.login(invalidEmail, invalidPassword, httpSession, redirectAttributes);
-        assertNotEquals(viewName, "redirect:/gamer/home");
+        assertNotEquals("redirect:/gamer/home", viewName);
         assertThrows(UnsuccessfulLoginException.class, () -> gamerService.login(invalidEmail, invalidPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Invalid username and/or password. Please try again.");
     }
@@ -233,7 +233,7 @@ public class GamerControllerTest {
     void loginGamer_withValidUsernameAndValidPassword_andUnexpectedErrorThrown_returnsGamerLoginPage_withCorrectErrorMessageDisplayed() throws UnsuccessfulLoginException {
         doThrow(new RuntimeException()).when(gamerService).login(validUsername, validPassword);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/login");
+        assertEquals("redirect:/gamer/login", viewName);
         assertThrows(Exception.class, () -> gamerService.login(validUsername, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Unexpected error occurred. Please try again later.");
     }
@@ -242,7 +242,7 @@ public class GamerControllerTest {
     void loginGamer_withValidUsernameAndValidPassword_andUnexpectedErrorThrown_doesNotReturnsHomePage() throws UnsuccessfulLoginException {
         doThrow(new RuntimeException()).when(gamerService).login(validUsername, validPassword);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
-        assertNotEquals(viewName, "redirect:/gamer/home");
+        assertNotEquals("redirect:/gamer/home", viewName);
         assertThrows(Exception.class, () -> gamerService.login(validUsername, validPassword));
         verify(redirectAttributes).addFlashAttribute("error", "Unexpected error occurred. Please try again later.");
     }
@@ -253,7 +253,7 @@ public class GamerControllerTest {
         PersonPrincipal personPrincipal = new PersonPrincipal(gamer);
         when(gamerService.login(validUsername, validPassword)).thenReturn(personPrincipal);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
-        assertEquals(viewName, "redirect:/gamer/home");
+        assertEquals("redirect:/gamer/home", viewName);
     }
 
     @Test
@@ -262,7 +262,7 @@ public class GamerControllerTest {
         PersonPrincipal personPrincipal = new PersonPrincipal(gamer);
         when(gamerService.login(validUsername, validPassword)).thenReturn(personPrincipal);
         String viewName = gamerController.login(validUsername, validPassword, httpSession, redirectAttributes);
-        assertNotEquals(viewName, "redirect:/gamer/login");
+        assertNotEquals("redirect:/gamer/login", viewName);
     }
 
 }

@@ -9,9 +9,4 @@ public class PersonTest {
         Person person = new Gamer("Ali Hassan", "alihassan", "ali_hassan@gmail.com", "QQaa123!");
     }
 
-    @Test
-    void createAdministrator_withValidParameters_success() {
-        Person person = new Administrator("Syed Abu", "syed123", "syed.abu@gamevault.com", "PPPooo123!@");
-    }
-
 }
