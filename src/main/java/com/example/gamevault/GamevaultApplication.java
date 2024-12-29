@@ -1,6 +1,6 @@
 package com.example.gamevault;
 
-import com.example.gamevault.configuration.InitialStartupDataPopulation;
+import com.example.gamevault.configuration.InitialStartupConfiguration;
 import com.example.gamevault.exception.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GamevaultApplication {
 
 	@Autowired
-	private InitialStartupDataPopulation initialStartupDataPopulation;
+	private InitialStartupConfiguration initialStartupConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(GamevaultApplication.class, args);
@@ -19,7 +19,7 @@ public class GamevaultApplication {
 
 	@PostConstruct
 	public void initialization() throws InvalidNameException, InvalidEmailAddressException, UnavailableEmailAddressException, InvalidPasswordException, InvalidUsernameException, UnavailableUsernameException {
-		initialStartupDataPopulation.initialize();
+		initialStartupConfiguration.initialize();
 	}
 
 }

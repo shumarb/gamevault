@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class InitialStartupDataPopulation {
-    private static final Logger logger = LogManager.getLogger(InitialStartupDataPopulation.class);
+public class InitialStartupConfiguration {
+    private static final Logger logger = LogManager.getLogger(InitialStartupConfiguration.class);
 
     @Autowired
     private VideoGameRepository videoGameRepository;
